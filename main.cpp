@@ -17,11 +17,11 @@ void deleteList(Node *);
 
 int main() {
     Node *head = nullptr;
-    Node *tail = nullptr;
     int count = 0;
 
     // create a linked list of size SIZE with random numbers 0-99
-    for (int i = 0; i < SIZE; i++) {
+    for (int i = 0; i < SIZE; i++) 
+    {
         int tmp_val = rand() % 100;
         //calls the function to add this value to the head of a linked list
         char insertion;
@@ -81,21 +81,23 @@ void addToTail(int val, Node *&hd)
 {
    Node *newVal = new Node;
         // adds node at head if list is empty
-        if (!hd) 
-        { // if this is the first node, it's the new head
-            hd = newVal;
-            newVal->next = nullptr;
-            newVal->value = val;
-        }
-        else
-        {
-            while(newVal->next != nullptr)
+    if (hd == nullptr) 
+    { // if this is the first node, it's the new head
+        hd = newVal;
+        newVal->next = nullptr;
+        newVal->value = val;
+    }
+    else if (hd != nullptr)
+    {
+        Node *current = hd;
+        while(current->next != nullptr)
             {
-               newVal = newVal->next;
+            current = current->next;
             }
-            newVal->value = val;
-
-        }        
+        current->next = newVal;
+        newVal->next = nullptr;
+        newVal->value = val;
+    }
 }
 
 void insertNode(Node *hd)
