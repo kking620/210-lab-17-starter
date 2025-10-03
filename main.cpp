@@ -9,8 +9,8 @@ struct Node {
 };
 
 void output(Node *);
-void addToHead(int val, Node *);
-void addToTail(int val, Node *);
+void addToHead(int val, Node *&hd);
+void addToTail(int val, Node *&hd);
 void insertNode(Node *);
 void deleteNode(Node *);
 void deleteList(Node *);
@@ -26,6 +26,7 @@ int main() {
         char insertion;
         cout << "Where would you like to insert this value? (h for Head & t for tail)\n";
         cin >> insertion;
+        
         if(insertion == 'h' || insertion =='H')
             addToHead(tmp_val, head);
         else if(insertion == 't' || insertion =='T')
@@ -59,7 +60,7 @@ void output(Node * hd) {
     cout << endl;
 }
 
-void addToHead(int val, Node *hd)
+void addToHead(int val, Node *&hd)
 {
     Node *newVal = new Node;
         
@@ -76,7 +77,7 @@ void addToHead(int val, Node *hd)
         }
 }
 
-void addToTail(int val, Node *hd)
+void addToTail(int val, Node *&hd)
 {
    Node *newVal = new Node;
         // adds node at head if list is empty
@@ -88,11 +89,12 @@ void addToTail(int val, Node *hd)
         }
         else
         {
-            while(newVal->next != nullptr)
+            Node *current = hd;
+            while(current->next != nullptr)
             {
-                newVal = newVal->next;
+                current = current->next;
             }
-            newVal->next = newVal;
+            current->next = newVal;
         }
 }
 
