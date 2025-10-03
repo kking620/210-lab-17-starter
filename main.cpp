@@ -9,14 +9,15 @@ struct Node {
 };
 
 void output(Node *);
-void addToHead(int val, Node *);
-void addToTail(int val, Node *);
+void addToHead(int val, Node *&);
+void addToTail(int val, Node *&);
 void insertNode(Node *);
 void deleteNode(Node *);
 void deleteList(Node *);
 
 int main() {
     Node *head = nullptr;
+    Node *tail = nullptr;
     int count = 0;
 
     // create a linked list of size SIZE with random numbers 0-99
@@ -41,7 +42,6 @@ int main() {
     output(head);
 
     deleteList(head);
-    output(head);
 
     return 0;
 }
@@ -60,7 +60,7 @@ void output(Node * hd) {
     cout << endl;
 }
 
-void addToHead(int val, Node *hd)
+void addToHead(int val, Node *&hd)
 {
     Node *newVal = new Node;
         
@@ -77,11 +77,11 @@ void addToHead(int val, Node *hd)
         }
 }
 
-void addToTail(int val, Node *hd)
+void addToTail(int val, Node *&hd)
 {
    Node *newVal = new Node;
         // adds node at head if list is empty
-        if (hd == nullptr) 
+        if (!hd) 
         { // if this is the first node, it's the new head
             hd = newVal;
             newVal->next = nullptr;
@@ -91,10 +91,11 @@ void addToTail(int val, Node *hd)
         {
             while(newVal->next != nullptr)
             {
-                newVal = newVal->next;
+               newVal = newVal->next;
             }
             newVal->value = val;
-        }
+
+        }        
 }
 
 void insertNode(Node *hd)
